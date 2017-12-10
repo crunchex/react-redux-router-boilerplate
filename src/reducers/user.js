@@ -1,5 +1,7 @@
 import { Map } from 'immutable'
+import { combineActions, handleActions } from 'redux-actions'
 import { getVal as getValDeep } from '../lib'
+import { ActionTypes as Actions } from '../actions'
 
 const initialState = Map({
   email: 'hello@world.com'
@@ -13,6 +15,11 @@ export const Selectors = {
   userEmail: state => getVal(state, 'email')
 }
 
-// Placeholder reducer
-const reducer = (state, action) => initialState
-export default reducer
+const actions = [
+  Actions.UPDATE_USER_EMAIL
+]
+
+// Combined reducer.
+export default handleActions({
+  [combineActions(...actions)]: (state, action) => state.merge(action.payload)
+}, initialState)
