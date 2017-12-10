@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { createLogger } from 'redux-logger'
 import { Iterable, Map } from 'immutable'
+import createHistory from 'history/createBrowserHistory'
+import { routerMiddleware } from 'react-router-redux'
 import rootReducer from './reducers'
 
 // Enhancers
@@ -14,6 +16,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Middleware
+export const history = createHistory()
+const router = routerMiddleware(history)
+
 const stateTransformer = state => {
   if (Iterable.isIterable(state)) return state.toJS()
   else return state
@@ -24,7 +29,8 @@ const predicate = (getState, action) => {
   return !typeHasBlacklisted
 }
 const logger = createLogger({ stateTransformer, predicate, collapsed: true })
-const middleware = [ logger ]
+
+const middleware = [ router, logger ]
 
 // Composition
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers)

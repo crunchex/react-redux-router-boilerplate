@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { Selectors } from '../reducers'
 import { ActionCreators as Actions } from '../actions'
 import { toJS } from '../lib'
@@ -9,7 +10,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUserEmail: email => dispatch(Actions.updateUserEmail(email))
+  updateUserEmail: email => dispatch(Actions.updateUserEmail(email)),
+  goTo: path => dispatch(push(path))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(toJS(App))

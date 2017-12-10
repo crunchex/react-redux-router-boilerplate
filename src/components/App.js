@@ -16,6 +16,10 @@ class App extends Component {
         <p onClick={() => this.props.updateUserEmail('world@hello.com')}>
           {this.props.userEmail}
         </p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button onClick={() => this.props.goTo('/app/page/1')}>Page 1</button>
+          <button onClick={() => this.props.goTo('/app/page/2')}>Page 2</button>
+        </div>
       </div>
     )
   }
