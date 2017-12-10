@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import { Map } from 'immutable'
+import rootReducer from './reducers'
 
 // Enhancers
 const enhancers = []
@@ -16,5 +18,5 @@ const middleware = []
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers)
 
 // Store
-const initialState = {}
-export default createStore((state, action) => state, initialState, composedEnhancers)
+const initialState = Map()
+export default createStore(rootReducer, initialState, composedEnhancers)
